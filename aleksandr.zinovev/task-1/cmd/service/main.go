@@ -22,4 +22,17 @@ func main() {
 	if err3 != nil {
 		fmt.Println("Invalid operation")
 	}
+
+	switch operation {
+	case "+":
+		fmt.Println(operand1 + operand2)
+	case "-":
+		fmt.Println(operand1 - operand2)
+	case "*":
+		fmt.Println(operand1 * operand2)
+	case "/":
+		fmt.Println(operand1 / operand2)
+	default:
+		fmt.Println("Invalid operation")
+	}
 }
