@@ -14,16 +14,24 @@ func main() {
 		targetTemp       int
 	)
 
-	_, err := fmt.Scan(&departmentsCount, &employeesCount)
+	_, err := fmt.Scan(&departmentsCount)
 	if err != nil {
 		return
 	}
 
 	for range departmentsCount {
+
+		_, err = fmt.Scan(&employeesCount)
+		if err != nil {
+			fmt.Println("Invalid employees number")
+			return
+		}
+
 		minTemp = 15
 		maxTemp = 30
 
 		for range employeesCount {
+
 			if _, err := fmt.Scan(&ask, &targetTemp); err != nil {
 				return
 			}
