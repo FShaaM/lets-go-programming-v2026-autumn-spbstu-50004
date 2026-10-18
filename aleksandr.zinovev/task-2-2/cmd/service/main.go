@@ -7,35 +7,35 @@ import (
 
 type IntHeap []int
 
-func (this IntHeap) Len() int {
-	return len(this)
+func (thisHeap *IntHeap) Len() int {
+	return len(*thisHeap)
 }
 
-func (this IntHeap) Less(i, j int) bool {
-	return this[i] < this[j]
+func (thisHeap *IntHeap) Less(i, j int) bool {
+	return (*thisHeap)[i] < (*thisHeap)[j]
 }
 
-func (this IntHeap) Swap(i, j int) {
-	this[i], this[j] = this[j], this[i]
+func (thisHeap *IntHeap) Swap(i, j int) {
+	(*thisHeap)[i], (*thisHeap)[j] = (*thisHeap)[j], (*thisHeap)[i]
 }
 
-func (this *IntHeap) Push(item any) {
+func (thisHeap *IntHeap) Push(item any) {
 	value, ok := item.(int)
 	if !ok {
 		return
 	}
 
-	*this = append(*this, value)
+	*thisHeap = append(*thisHeap, value)
 }
 
-func (this *IntHeap) Pop() any {
+func (thisHeap *IntHeap) Pop() any {
 	var (
-		oldHeap    = *this
+		oldHeap    = *thisHeap
 		size       = len(oldHeap)
 		poppedItem = oldHeap[size-1]
 	)
 
-	*this = oldHeap[0 : size-1]
+	*thisHeap = oldHeap[0 : size-1]
 
 	return poppedItem
 }
@@ -71,19 +71,19 @@ func main() {
 		return
 	}
 
-	MinHeap := &IntHeap{}
-	heap.Init(MinHeap)
+	minHeap := &IntHeap{}
+	heap.Init(minHeap)
 
 	for _, rating := range preferences {
-		if MinHeap.Len() < targetIndex {
-			heap.Push(MinHeap, rating)
-		} else if rating > (*MinHeap)[0] {
-			heap.Pop(MinHeap)
-			heap.Push(MinHeap, rating)
+		if minHeap.Len() < targetIndex {
+			heap.Push(minHeap, rating)
+		} else if rating > (*minHeap)[0] {
+			heap.Pop(minHeap)
+			heap.Push(minHeap, rating)
 		}
 	}
 
-	if MinHeap.Len() > 0 {
-		fmt.Println((*MinHeap)[0])
+	if minHeap.Len() > 0 {
+		fmt.Println((*minHeap)[0])
 	}
 }
