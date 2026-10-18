@@ -28,6 +28,14 @@ func main() {
 			} else if ask == "<=" && t < maxTemp {
 				maxTemp = t
 			}
+
+			if minTemp <= maxTemp {
+				fmt.Printf("%d ", minTemp)
+			} else {
+				fmt.Printf("-1 ")
+			}
 		}
+
+		fmt.Println()
 	}
 }
