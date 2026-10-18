@@ -1,6 +1,7 @@
 package main
 
 import (
+	"container/heap"
 	"fmt"
 )
 
@@ -30,11 +31,11 @@ func (this *IntHeap) Push(item any) {
 func (this *IntHeap) Pop() any {
 	var (
 		oldHeap    = *this
-		heapLength = len(oldHeap)
-		poppedItem = oldHeap[heapLength-1]
+		size       = len(oldHeap)
+		poppedItem = oldHeap[size-1]
 	)
 
-	*this = oldHeap[0 : heapLength-1]
+	*this = oldHeap[0 : size-1]
 
 	return poppedItem
 }
@@ -42,6 +43,7 @@ func (this *IntHeap) Pop() any {
 func main() {
 	var (
 		dishesCount int
+		targetIndex int
 		preferences []int
 	)
 
@@ -60,5 +62,28 @@ func main() {
 
 			return
 		}
+	}
+
+	_, err = fmt.Scan(&targetIndex)
+	if err != nil {
+		fmt.Println("Invalid target index")
+
+		return
+	}
+
+	MinHeap := &IntHeap{}
+	heap.Init(MinHeap)
+
+	for _, rating := range preferences {
+		if MinHeap.Len() < targetIndex {
+			heap.Push(MinHeap, rating)
+		} else if rating > (*MinHeap)[0] {
+			heap.Pop(MinHeap)
+			heap.Push(MinHeap, rating)
+		}
+	}
+
+	if MinHeap.Len() > 0 {
+		fmt.Println((*MinHeap)[0])
 	}
 }
