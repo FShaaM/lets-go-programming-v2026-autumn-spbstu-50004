@@ -6,36 +6,39 @@ import (
 
 func main() {
 	var (
-		n, k             int
-		minTemp, maxTemp int
+		departmentsCount int
+		employeesCount   int
+		minTemp          int
+		maxTemp          int
 		ask              string
-		t                int
+		targetTemp       int
 	)
 
-	if _, err := fmt.Scan(&n, &k); err != nil {
+	_, err := fmt.Scan(&departmentsCount, &employeesCount)
+	if err != nil {
 		return
 	}
 
-	for i := 0; i < n; i++ {
+	for range departmentsCount {
 		minTemp = 15
 		maxTemp = 30
 
-		for j := 0; j < k; j++ {
-			fmt.Scan(&ask, &t)
+		for range employeesCount {
+			if _, err := fmt.Scan(&ask, &targetTemp); err != nil {
+				return
+			}
 
-			if ask == ">=" && t > minTemp {
-				minTemp = t
-			} else if ask == "<=" && t < maxTemp {
-				maxTemp = t
+			if ask == ">=" && targetTemp > minTemp {
+				minTemp = targetTemp
+			} else if ask == "<=" && targetTemp < maxTemp {
+				maxTemp = targetTemp
 			}
 
 			if minTemp <= maxTemp {
-				fmt.Printf("%d ", minTemp)
+				fmt.Println(minTemp)
 			} else {
-				fmt.Printf("-1 ")
+				fmt.Println(-1)
 			}
 		}
-
-		fmt.Println()
 	}
 }
