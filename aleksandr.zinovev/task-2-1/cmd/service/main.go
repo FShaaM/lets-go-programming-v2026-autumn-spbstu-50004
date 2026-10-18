@@ -16,14 +16,16 @@ func main() {
 
 	_, err := fmt.Scan(&departmentsCount)
 	if err != nil {
+		fmt.Println("Invalid departments number")
+
 		return
 	}
 
 	for range departmentsCount {
-
 		_, err = fmt.Scan(&employeesCount)
 		if err != nil {
 			fmt.Println("Invalid employees number")
+
 			return
 		}
 
@@ -31,8 +33,9 @@ func main() {
 		maxTemp = 30
 
 		for range employeesCount {
-
 			if _, err := fmt.Scan(&ask, &targetTemp); err != nil {
+				fmt.Println("Invalid temperature input")
+
 				return
 			}
 
