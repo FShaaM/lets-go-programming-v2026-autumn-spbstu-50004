@@ -6,6 +6,18 @@ import (
 
 type IntHeap []int
 
+func (this IntHeap) Len() int {
+	return len(this)
+}
+
+func (this IntHeap) Less(i, j int) bool {
+	return this[i] < this[j]
+}
+
+func (this IntHeap) Swap(i, j int) {
+	this[i], this[j] = this[j], this[i]
+}
+
 func main() {
 	var (
 		dishesCount int
