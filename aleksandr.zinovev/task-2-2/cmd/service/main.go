@@ -45,8 +45,7 @@ func main() {
 		if minHeap.Len() < targetIndex {
 			heap.Push(minHeap, rating)
 		} else {
-			smallestAny := heap.Pop(minHeap)
-			smallestItem, ok := smallestAny.(int)
+			smallestItem, ok := heap.Pop(minHeap).(int)
 			if !ok {
 				return
 			}
@@ -60,8 +59,7 @@ func main() {
 	}
 
 	if minHeap.Len() > 0 {
-		resultAny := heap.Pop(minHeap)
-		result, ok := resultAny.(int)
+		result, ok := heap.Pop(minHeap).(int)
 		if !ok {
 			return
 		}
