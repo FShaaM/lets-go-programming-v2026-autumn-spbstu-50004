@@ -1,55 +1,69 @@
 package main
 
-import (
-	"fmt"
+import "fmt"
+
+const (
+	defaultMinTemp = 15
+	defaultMaxTemp = 30
 )
 
-func main() {
-	var (
-		departmentsCount int
-		employeesCount   int
-		minTemp          int
-		maxTemp          int
-		ask              string
-		targetTemp       int
-	)
+type conditioner struct {
+	min int
+	max int
+}
 
-	_, err := fmt.Scan(&departmentsCount)
-	if err != nil {
+func newConditioner() *conditioner {
+	return &conditioner{
+		min: defaultMinTemp,
+		max: defaultMaxTemp,
+	}
+}
+
+func (c *conditioner) regulate(sign string, targetTemp int) int {
+	if sign == ">=" && targetTemp > c.min {
+		c.min = targetTemp
+	} else if sign == "<=" && targetTemp < c.max {
+		c.max = targetTemp
+	}
+
+	if c.min > c.max {
+		return -1
+	}
+
+	return c.min
+}
+
+func main() {
+	var departmentsCount int
+	if _, err := fmt.Scan(&departmentsCount); err != nil {
 		fmt.Println("Invalid departments number")
 
 		return
 	}
 
 	for range departmentsCount {
-		_, err = fmt.Scan(&employeesCount)
-		if err != nil {
+		var employeesCount int
+		if _, err := fmt.Scan(&employeesCount); err != nil {
 			fmt.Println("Invalid employees number")
 
 			return
 		}
 
-		minTemp = 15
-		maxTemp = 30
+		cond := newConditioner()
 
 		for range employeesCount {
-			if _, err := fmt.Scan(&ask, &targetTemp); err != nil {
+			var (
+				sign       string
+				targetTemp int
+			)
+
+			if _, err := fmt.Scan(&sign, &targetTemp); err != nil {
 				fmt.Println("Invalid temperature input")
 
 				return
 			}
 
-			if ask == ">=" && targetTemp > minTemp {
-				minTemp = targetTemp
-			} else if ask == "<=" && targetTemp < maxTemp {
-				maxTemp = targetTemp
-			}
-
-			if minTemp <= maxTemp {
-				fmt.Println(minTemp)
-			} else {
-				fmt.Println(-1)
-			}
+			fmt.Println(cond.regulate(sign, targetTemp))
 		}
 	}
 }
