@@ -48,6 +48,7 @@ func Load(path string) (Config, error) {
 		if err == nil {
 			return Config{}, errMultipleYAMLDocs
 		}
+
 		return Config{}, fmt.Errorf("unexpected trailing content in YAML: %w", err)
 	}
 
@@ -57,6 +58,7 @@ func Load(path string) (Config, error) {
 	if cfg.InputFile == "" {
 		return Config{}, errEmptyInputFile
 	}
+
 	if cfg.OutputFile == "" {
 		return Config{}, errEmptyOutputFile
 	}

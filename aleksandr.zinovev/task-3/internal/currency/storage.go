@@ -29,6 +29,7 @@ func SaveJSON(path string, valutes []Valute) error {
 	if err != nil {
 		return fmt.Errorf("marshal JSON: %w", err)
 	}
+
 	data = append(data, '\n')
 
 	cleanPath := filepath.Clean(path)

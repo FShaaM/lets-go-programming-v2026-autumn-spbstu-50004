@@ -39,6 +39,7 @@ func ParseXML(path string) ([]Valute, error) {
 	if curs.XMLName.Local != "ValCurs" {
 		return nil, fmt.Errorf("%w: got %q", errInvalidRootTag, curs.XMLName.Local)
 	}
+
 	if len(curs.Valutes) == 0 {
 		return nil, errEmptyValutes
 	}
