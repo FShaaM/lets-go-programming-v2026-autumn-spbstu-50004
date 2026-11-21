@@ -2,8 +2,10 @@ package main
 
 import (
 	"flag"
+	"fmt"
 
 	"aleksandr.zinovev/task-3/internal/config"
+	"aleksandr.zinovev/task-3/internal/currency"
 )
 
 const defaultConfigPath = "config.yaml"
@@ -14,7 +16,13 @@ func main() {
 
 	cfg, err := config.Load(*configPath)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("load config: %w", err))
 	}
-	_ = cfg
+
+	valutes, err := currency.ParseXML(cfg.InputFile)
+	if err != nil {
+		panic(fmt.Errorf("parse xml: %w", err))
+	}
+
+	_ = valutes
 }
