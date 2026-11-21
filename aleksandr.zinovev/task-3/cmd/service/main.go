@@ -24,5 +24,9 @@ func main() {
 		panic(fmt.Errorf("parse xml: %w", err))
 	}
 
-	_ = valutes
+	currency.SortByValueDesc(valutes)
+
+	if err := currency.SaveJSON(cfg.OutputFile, valutes); err != nil {
+		panic(fmt.Errorf("save json: %w", err))
+	}
 }
